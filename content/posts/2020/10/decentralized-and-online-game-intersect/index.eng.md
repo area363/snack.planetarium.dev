@@ -17,8 +17,6 @@ Online games use servers to operate services, such as multi-play and user data. 
 
 If everyone can divide online game services and maintain them, people won’t need to worry about shutting down as long as players keep playing. Decentralization, which fits this concept, means sharing the role of traditional central servers with fellow users. You've probably heard of <abbr title="Peer to peer">P2P</abbr> or distributed technology at least once.
 
-[^1]: Computer that participates in the blockchain network.
-
 ## Chain Reorganization
 
 Planetarium utilizes blockchain among many decentralized technologies to preserve data such as game assets, user items, and quests achieved.
@@ -33,10 +31,11 @@ src="images/single-chain.png"
 caption="Blocks connected in order are called a chain."
 
 > }}
+> Before explaining reorg, I’d like to point out that a blockchain network always points to a single chain as its original copy.
 
-Before explaining reorg, I’d like to point out that a blockchain network always points to a single chain as its original copy.
+Blocks in a blockchain can be created by anyone. However, if nodes[^node] create blocks simultaneously, multiple chains with the same beginning but different ends appear. If so, how can we adopt a chain as the original even though there’s no central figure to decide?
 
-Blocks in a blockchain can be created by anyone. However, if nodes create blocks simultaneously, multiple chains with the same beginning but different ends appear. If so, how can we adopt a chain as the original even though there’s no central figure to decide?
+[^node]: Computer that participates in the blockchain network.
 
 {{<
 figure
@@ -44,8 +43,7 @@ src="images/orphaned-block.png"
 caption="At similar points in time, the chain with more resources used will be adopted."
 
 > }}
-
-Instead of choosing its own chain, each node chooses the chain that best fits the rule shared by all nodes. The <abbr title="proof-of-work">PoW</abbr> approach used by Nine Chronicles and Libplanet, adopts the chain with more resources invested in among blocks created at a similar time.
+> Instead of choosing its own chain, each node chooses the chain that best fits the rule shared by all nodes. The <abbr title="proof-of-work">PoW</abbr> approach used by Nine Chronicles and Libplanet, adopts the chain with more resources invested in among blocks created at a similar time.
 
 {{<
 figure
@@ -53,8 +51,7 @@ src="images/orphaned-blocks.png"
 caption=" The blue chain with 5 blocks, is reorg-ed to red blocks. (Deep Reorg)"
 
 > }}
-
-But when another chain that better meets this rule than the adopted chain appears in the network, the network will adopt the new chain which will cause a flip.
+> But when another chain that better meets this rule than the adopted chain appears in the network, the network will adopt the new chain which will cause a flip.
 
 Normally, a shallow reorg occurs with one or two blocks, but if the depth of divided blocks is greater than a certain number, a deep reorg occurs. For example:
 
@@ -77,16 +74,15 @@ src="images/bug-report.png"
 caption="A user who owned 10,000 gold yesterday reported having less than 1,000 gold."
 
 > }}
+> So, as I have said earlier, it's been often mentioned in the Nine Chronicles community that the level and items users originally had ended up reverting back to what they were a few minutes or hours ago due to reorg.[^nonce] Because this occurs on a decentralized network, players unfortunately can't ask a central operator(i.e. game company) to restore it.
 
-So, as I have said earlier, it's been often mentioned in the Nine Chronicles community that the level and items users originally had ended up reverting back to what they were a few minutes or hours ago due to reorg.[^nonce] Because this occurs on a decentralized network, players unfortunately can't ask a central operator(i.e. game company) to restore it.
-
-[^nonce]: The player's perspective was well explained in the [game review](https://www.facebook.com/unseenone.flohsdpsyphle/posts/1027765500973348) written by See-eun Ha, Co-founder of Blockchain Co-living and Co-working Community, Nonce.
+[^nonce]: The player's perspective was well explained in the [game review](https://dpsyphle.ninja/2020/08/16/rollbacks-in-decentralized-games.html) written by See-eun Ha, Co-founder of Blockchain Co-living and Co-working Community, Nonce.
 
 ## Blockchain Network Reset
 
 Nine Chronicles has reset its blockchain network seven times during the beta period. When the network is reset, all players’ game data becomes reset as well. Here’s the reason why the reset was carried out despite certain risks:
 
-The blockchain network core [Libplanet] stores the state of the game in blocks. Player’s behavior is stored with a data structure called [Action] (https://docs.libplanet.io/0.9.5/api/Libplanet.Action.IAction.html).
+The blockchain network core [Libplanet] stores the state of the game in blocks. Player’s behavior is stored with a data structure called [Action](https://docs.libplanet.io/0.9.5/api/Libplanet.Action.IAction.html).
 
 ```json
 {
@@ -103,7 +99,7 @@ If a costume element is updated within the game, a new property is added, such a
 
 In these cases, other blockchains usually add protocols to interpret blocks differently after a certain number of blocks. Nine Chronicles may do the same, but we found this method to be unnecessary during the beta period, when changes are frequent, large and small. That's why we decided to reset the chain every time.
 
-Of course, we will be maintaining the chain after the official launch. A number of suggestions have been reviewed, and if there is a chance, we will introduce them on this blog moving forward.
+Of course, we will be maintaining the chain after the official launch. A number of suggestions have been reviewed, and if there is a chance, we will introduce them on this blog.
 
 [^hash]: A blockchain connects the chain using the hash of the previous block as a meta information, similar to a linked list.
 [^expansion]: It is possible that game clients with expanded specifications may not be able to interpret the previous block correctly.
